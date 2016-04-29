@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+  	<p><%= message %></p>
+  	<h3>派車</h3>
+  	<form action="/edit" method="post">
+		<div>
+			<label for="date">派車日期</label>
+			<input type="date" id="date" name="date">
+		</div>
+		<div>
+			<label for="customer">客戶名稱</label>
+			<select name="customer" id="customer">
+				
+			</select>
+		</div>
+		<div>
+			<label for="vehicleNumber">派車車號</label>
+			<select name="vehicleNumber" id="vehicleNumber">
+				
+			</select>	
+		</div>
+		<div>
+			<label for="vehicleWeight">吊車噸數</label>
+			<select name="vehicleWeight" id="vehicleWeight">
+				
+			</select>	
+		</div>
+		<div>
+			<label for="location">派車地點</label>
+			<input type="text" name="location" id="location">
+		</div>
+		<div>
+			<label for="startTime">工作時間</label>
+			<input type="time" name="startTime" id="startTime" value="09:00" step="00:30">~
+			<input type="time" name="endTime" id="endTime" value="18:00">
+		</div>
+		<div>
+			<label for="overtime">加班時數</label>
+			<select id="overtime" name="overtime">
+				<option value="0">未指派加班</option>
+				<option value="30">30 分</option>
+				<option value="60">1 小時</option>
+				<option value="90">1.5 小時</option>
+				<option value="120">2 小時</option>
+				<option value="150">2.5 小時</option>
+				<option value="180">3 小時</option>
+				<option value="210">3.5 小時</option>
+				<option value="240">4 小時</option>
+				<option value="240">4.5 小時</option>
+				<option value="300">5 小時</option>
+				<option value="330">5.5 小時</option>
+				<option value="360">6 小時</option>
+			</select>
+		</div>
+		<div>
+			<label for="driver">指派司機</label>
+			<select id="driver" name="driver">
+				
+			</select>
+		</div>
+		<div>
+			<label for="assistant">指派助手</label>
+			<select id="assistant" name="assistant">
+				
+			</select>
+		</div>
+		<div>
+			<label for="assistantPayment">助手金額</label>
+			<select id="assistantPayment">
+				<option value="0">未指派</option>
+				<option value="2000">2000 NTD.</option>
+				<option value="2500">2500 NTD.</option>
+			</select>
+		</div>
+		<div>
+			<label for="payment">金額</label>
+			<input type="number" id="payment" name="payment">
+		</div>
+		<div>
+			<label for="comment">備註</label>
+			<textarea id="comment" name="comment"></textarea>
+		</div>
+		<input type="submit" value="確定">
+	</form>
+  </body>
+</html>
