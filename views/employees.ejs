@@ -3,10 +3,12 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" type="text/css" href="/codebase/webix.css">
+    <script type="text/javascript" charset="utf-8" src="/codebase/webix_debug.js"></script>
   </head>
   <body>
     <h1><%= title %></h1>
-    <form action="/edit" method="post">
+<!--     <form action="/edit" method="post">
     	<div>
     		<label for="">姓名</label>
     		<input type="text" id="" name="">
@@ -36,6 +38,10 @@
     		<input type="submit" name="" value="修改">
     		<input type="submit" name="" value="刪除">
     	</div>
-    </form>	
+    </form>	 -->
+    <div id="list"></div>
+	<script type="text/javascript" charset="utf-8" src="/javascripts/employees_op.js">
+
+	</script>
   </body>
 </html>
