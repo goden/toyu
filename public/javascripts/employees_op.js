@@ -1,36 +1,15 @@
 webix.ready(function() {
 
-	webix.ui({
-		id: "workspace",
-		container: "layout",
-		css: "toyu-layout",
-		minHeight: 600,
-		rows: [
-			{type: "header", template: "東宥/宥騏股份有限公司 - 專用資訊系統"},
-			{cols: [
-				{
-					id: "toyu-nav",
-					view: "list", 
-					width: 250,
-					select: true,
-					template: "#title#",
-					data: [
-						{title: "車輛派遣維護"},
-						{title: "客戶關係管理"},
-						{title: "車輛資料維護"},
-						{title: "人資資料維護"},
-						{title: "系統偏好設定"}
-					],
-					on: {
-						onItemClick: function(id) {
-							console.log("Not implement.");
-						}
-					}
-				},
-				{ view: "resizer" },
-				{
+	var LIST_ITEM = {
+		DISPATCH: 0,
+		CRM: 1,
+		VERHICLE: 2,
+		HR: 3,
+		PREFERENCE: 4
+	};
+
+	var employees = {
 					view: "datatable",
-					// gravity: 0.7,
 					columns: [
 						{ id: "eId",      header: "工號",	   width: 60 }, 
 						{ id: "name", 	  header: "員工姓名",   width: 120, editor: "text" }, 
@@ -63,8 +42,66 @@ webix.ready(function() {
 							}
 						}
 					}
+				};
+
+	webix.ui({
+		id: "toyu-layout",
+		container: "layout",
+		minHeight: 600,
+		type: "clean",
+		rows: [
+			{type: "header", template: "東宥/宥騏起重工程 - 資訊系統"},
+			{cols: [
+				{
+					id: "toyu-list",
+					view: "list", 
+					width: 250,
+					select: true,
+					template: "#title#",
+					data: [
+						{title: "車輛派遣維護", listId: LIST_ITEM.DISPATCH},
+						{title: "客戶關係管理", listId: LIST_ITEM.CRM},
+						{title: "車輛資料維護", listId: LIST_ITEM.VERHICLE},
+						{title: "人資資料維護", listId: LIST_ITEM.HR},
+						{title: "系統偏好設定", listId: LIST_ITEM.PREFERENCE}
+					],
+					on: {
+						onItemClick: function(id) {
+							// console.log("Not implement. The id is " + id);
+							var item = $$("toyu-list").getItem(id);
+							console.log(item.listId);
+
+							switch(item.listId) {
+								case LIST_ITEM.DISPATCH:
+								break;
+								case LIST_ITEM.CRM:
+								break;
+								case LIST_ITEM.VERHICLE:
+								break;
+								case LIST_ITEM.HR:
+								break;
+								case LIST_ITEM.PREFERENCE:
+								break;
+							}
+
+						}
+					}
+				},
+				{ view: "resizer" },
+				{ 
+					id: "toyu-workspace",
+					view: "template", 
+					template: "本系統使用權及版權屬【東宥/宥騏起重工程】所有"
 				}
 			]}
 		]
 	});
+
+	window.onresize = function() {
+		setTimeout(function() {
+			// console.log("hi");
+			$$("toyu-layout").resize();
+		}, 1000);
+	}
+
 });
