@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var employee = require('./routes/employee');
+var client = require('./routes/client');
 
 var app = express();
 
@@ -37,7 +38,8 @@ db.once('open', function callback () {
 });
 
 //
-// Data structure declaration
+// 宣告資料結構
+// 員工
 var employeeSchema = mongoose.Schema({
   eId: String,                                                // 工號
   username: String,                                           // 系統帳號
@@ -56,29 +58,71 @@ var employeeSchema = mongoose.Schema({
   dispatched: {type: Boolean, default: false},                // 派遣配合
 });
 
+// 權限
 var permissionSchema = mongoose.Schema({
   level: Number,                                          // 權限等級
   comment: {type: String, default: ""}                    // 說明
 });
 
+// 職稱
 var positionSchema = mongoose.Schema({
-  type: Number,                                          // 職位等級
-  title: {type: String, default: ""}                    // 說明
+  type: Number,                                           // 職位等級
+  title: {type: String, default: ""}                      // 說明
+});
+
+// 客戶
+var clientSchema = mongoose.Schema({
+  cId: String,
+  name: String,
+  owner: String,
+  ownerTitle: String,
+  zip: String,
+  city: {type: mongoose.Schema.Types.ObjectId, ref: "City"}, 
+  address: String, 
+  tels:[{type: String}],
+  faxes: [{type: String}],
+  emails: [{type: String}],
+  website: String,
+  taxNumber: Number,
+  comment: String,
+  payments: [{type: mongoose.Schema.Types.ObjectId, ref: "Payment"}],
+  accounts: [{type: String}]
+});
+
+// 付款方式
+var paymentSchema = mongoose.Schema({
+  type: Number,
+  comment: String
+});
+
+var citySchema = mongoose.Schema({
+  type: Number,
+  name: String
 });
 
 app.db = {
   model: {
     Permission: mongoose.model("Permission", permissionSchema),
     Position: mongoose.model("Position", positionSchema),
-    Employee: mongoose.model("Employee", employeeSchema)
+    Employee: mongoose.model("Employee", employeeSchema),
+    Payment: mongoose.model("Payment", paymentSchema),
+    Client: mongoose.model("Client", clientSchema),
+    City: mongoose.model("City", citySchema)
   }
 };
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 // REST API
+// //////////////////////////////////////////////////////////////////////////////////////////////////
 app.post("/employee", employee.create);
 app.get("/employee", employee.read);
 app.put("/employee/:eId", employee.update);
 app.delete("/employee/:eId", employee.delete);
+
+app.post("/client", client.create);
+app.get("/client", client.read);
+app.put("/client/:cId", client.update);
+app.delete("/client/:cId", client.delete);
 
 
 // catch 404 and forward to error handler
