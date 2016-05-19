@@ -77,15 +77,15 @@ var clientSchema = mongoose.Schema({
   owner: String,
   ownerTitle: String,
   zip: String,
-  city: {type: mongoose.Schema.Types.ObjectId, ref: "City"}, 
+  city: {type: Number, ref: "City"}, 
   address: String, 
-  tels:[{type: String}],
+  tels: [{type: String}],
   faxes: [{type: String}],
   emails: [{type: String}],
   website: String,
   taxNumber: Number,
   comment: String,
-  payments: [{type: mongoose.Schema.Types.ObjectId, ref: "Payment"}],
+  payments: [{type: Number, ref: "Payment"}],
   accounts: [{type: String}]
 });
 
