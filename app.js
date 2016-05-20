@@ -13,6 +13,7 @@ var app = express();
 
 // import db module
 var mongoose = require('mongoose');
+var schema = mongoose.Schema;
 mongoose.connect('mongodb://localhost/toyu');
 
 // view engine setup
@@ -40,11 +41,11 @@ db.once('open', function callback () {
 //
 // 宣告資料結構
 // 員工
-var employeeSchema = mongoose.Schema({
+var employeeSchema = schema({
   eId: String,                                                // 工號
   username: String,                                           // 系統帳號
   password: String,                                           // 系統密碼
-  permission: {type: mongoose.Schema.Types.ObjectId, ref: "Permission"},  // 系統權限
+  permission: {type: schema.Types.ObjectId, ref: "Permission"},  // 系統權限
   firstName: {type: String, default: ""},                     // 姓
   lastName: {type: String, default: ""},                      // 名字
   birthDate: {type: Date, default: Date.now },                // 生日
@@ -54,30 +55,30 @@ var employeeSchema = mongoose.Schema({
   tel: {type: String, default: ""},                           // 連絡電話
   mobile: {type: String, default: ""},                        // 手機
   address: {type: String, default: ""},                       // 居住地址
-  positions: [{type: mongoose.Schema.Types.ObjectId, ref: "Position"}],  // 職稱
+  positions: [{type: schema.Types.ObjectId, ref: "Position"}],  // 職稱
   dispatched: {type: Boolean, default: false},                // 派遣配合
 });
 
 // 權限
-var permissionSchema = mongoose.Schema({
+var permissionSchema = schema({
   level: Number,                                          // 權限等級
   comment: {type: String, default: ""}                    // 說明
 });
 
 // 職稱
-var positionSchema = mongoose.Schema({
+var positionSchema = schema({
   type: Number,                                           // 職位等級
   title: {type: String, default: ""}                      // 說明
 });
 
 // 客戶
-var clientSchema = mongoose.Schema({
+var clientSchema = schema({
   cId: String,
   name: String,
   owner: String,
   ownerTitle: String,
   zip: String,
-  city: {type: Number, ref: "City"}, 
+  city: {type: schema.Types.ObjectId, ref: "City"}, 
   address: String, 
   tels: [{type: String}],
   faxes: [{type: String}],
@@ -85,17 +86,17 @@ var clientSchema = mongoose.Schema({
   website: String,
   taxNumber: Number,
   comment: String,
-  payments: [{type: Number, ref: "Payment"}],
+  payments: [{type: schema.Types.ObjectId, ref: "Payment"}],
   accounts: [{type: String}]
 });
 
 // 付款方式
-var paymentSchema = mongoose.Schema({
+var paymentSchema = schema({
   type: Number,
   comment: String
 });
 
-var citySchema = mongoose.Schema({
+var citySchema = schema({
   type: Number,
   name: String
 });
@@ -106,8 +107,8 @@ app.db = {
     Position: mongoose.model("Position", positionSchema),
     Employee: mongoose.model("Employee", employeeSchema),
     Payment: mongoose.model("Payment", paymentSchema),
-    Client: mongoose.model("Client", clientSchema),
-    City: mongoose.model("City", citySchema)
+    City: mongoose.model("City", citySchema),
+    Client: mongoose.model("Client", clientSchema)
   }
 };
 
