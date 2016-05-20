@@ -166,7 +166,11 @@ exports.update = function(req, res) {
 		.update(filter, filter2Set)
 		.exec(function(err, nModified) {
 			if (err) {
-				res.send({successful: false});
+				res.send({
+					result: {
+						successful: false
+					}
+				});
 			} else {
 				res.send({
 					successful: true,
